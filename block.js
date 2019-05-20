@@ -1,4 +1,5 @@
 //jshint esversion: 6
+const { GENESIS_DATA } = require('./config');
 
 class Block {
 
@@ -7,6 +8,10 @@ class Block {
             this.lastHash = lastHash;
             this.data = data;
             this.hash = hash;
+    }
+
+    static genesis() {
+        return new this(GENESIS_DATA);
     }
 };
 
