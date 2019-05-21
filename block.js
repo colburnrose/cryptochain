@@ -1,5 +1,6 @@
 //jshint esversion: 6
 const { GENESIS_DATA } = require('./config');
+const cryptoHash = require('./crypto-hash');
 
 class Block {
 
@@ -15,12 +16,17 @@ class Block {
     }
 
     static mineBlock({lastBlock, data}) {
+        const timeStamp = Date.now();
+        const lastHash = lastBlock.hash;
+
         return new this({
-            timeStamp: Date.now,
-            lastHash: lastBlock.hash,
-            data: data,
+            timeStamp,
+            lastHash,
+            data,
+            hash: cryptoHash(timeStamp, lastHash, data)
         });
     }
+
 };
 
 module.exports = Block;
